@@ -29,4 +29,6 @@
 You can install `Proteon` from GitHub using `pip`:
 
 ```bash
-pip install git+https://github.com/mohamadasadizade/Proteon.git
+git clone https://github.com/mohamadasadizade/Proteon.git
+cd Proteon
+pip install . 
