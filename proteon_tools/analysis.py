@@ -3,6 +3,7 @@ Include some functions for sequence-based protein analysis like residue composit
 """
 import numpy as np
 import mdtraj as md
+import matplotlib.pyplot as plt
 
 
 def fasta_rescompo(fasta_sequence):
@@ -108,6 +109,48 @@ def get_fit_box(traj):
 fit_box = get_fit_box('native_34850_relaxed_rank_001_alphafold2_ptm_model_1_seed_000.pdb')
 print(fit_box)
 
+
+
+def parse_pdb(pdb_file):
+    """Parse the PDB file to extract residue numbers and B-factors."""
+    residue_numbers = []
+    b_factors = []
+
+    with open(pdb_file, 'r') as file:
+        for line in file:
+            # Look for lines starting with ATOM or HETATM (which contain atomic info)
+            if line.startswith('ATOM') or line.startswith('HETATM'):
+                # Residue number is at columns 23 to 26 (4 characters wide)
+                # B-factor is at columns 61 to 66 (6 characters wide)
+                residue_number = int(line[22:26].strip())
+                b_factor = float(line[60:66].strip())
+                
+                # Append residue number and B-factor to lists
+                residue_numbers.append(residue_number)
+                b_factors.append(b_factor)
+
+    return residue_numbers, b_factors
+
+def plot_bfactor(pdb_file, output_file, cutoff, dpi=300):
+    """Plot the B-factor from the PDB file with a cutoff line."""
+    # Parse the PDB file to get residue numbers and B-factors
+    residue_numbers, b_factors = parse_pdb(pdb_file)
+
+    # Create a plot
+    plt.plot(residue_numbers, b_factors, linestyle='-', color='blue')
+    plt.axhline(y=cutoff, color='red', linestyle='--')  # Cutoff line
+
+    # Highlight areas above the cutoff
+    plt.fill_between(residue_numbers, b_factors, cutoff, where=(np.array(b_factors) >= cutoff), interpolate=True, color='lightsalmon')
+
+    # Add labels and titles
+    plt.xlabel('Residue Number')
+    plt.ylabel('B-factor')
+    plt.title(f'B-factor vs Residue Number for {pdb_file}')
+
+    # Save the plot to a file
+    plt.savefig(output_file, dpi=dpi)
+    plt.show()
 
 
 
