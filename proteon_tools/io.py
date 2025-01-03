@@ -121,3 +121,25 @@ def pdb_to_fasta(pdb_file, fasta_file):
     # Write the sequence to the FASTA file
     with open(fasta_file, 'w') as output_handle:
         output_handle.write(f">protein_sequence\n{sequence}")
+
+
+
+def parse_pdb(pdb_file):
+    """Parse the PDB file to extract residue numbers and B-factors."""
+    residue_numbers = []
+    b_factors = []
+
+    with open(pdb_file, 'r') as file:
+        for line in file:
+            # Look for lines starting with ATOM or HETATM (which contain atomic info)
+            if line.startswith('ATOM') or line.startswith('HETATM'):
+                # Residue number is at columns 23 to 26 (4 characters wide)
+                # B-factor is at columns 61 to 66 (6 characters wide)
+                residue_number = int(line[22:26].strip())
+                b_factor = float(line[60:66].strip())
+                
+                # Append residue number and B-factor to lists
+                residue_numbers.append(residue_number)
+                b_factors.append(b_factor)
+
+    return residue_numbers, b_factors
