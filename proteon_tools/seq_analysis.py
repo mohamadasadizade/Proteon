@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Include some functions for sequence-based protein analysis like residue composition. 
 """
