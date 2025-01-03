@@ -1,6 +1,9 @@
 """
 Include some functions for sequence-based protein analysis like residue composition. 
 """
+import numpy as np
+import mdtraj as md
+
 
 def fasta_rescompo(fasta_sequence):
     """ Calculate residue composition from a FASTA sequence."""
@@ -83,3 +86,28 @@ def aa_percentages(sequence):
 
     print(f"Amino Acid Percentages - Hydrophobic: {hydrophobic_percentage:.2f}%, Polar: {polar_percentage:.2f}%, Charged: {charged_percentage:.2f}%")
     return hydrophobic_percentage, polar_percentage, charged_percentage
+
+
+def get_fit_box(traj):
+    # Load the trajectory using mdtraj
+    traj = md.load(traj)
+    # Get the minimum and maximum coordinates along the x, y, and z axes
+    x_min, y_min, z_min = np.min(traj.xyz[0], axis=0)
+    x_max, y_max, z_max = np.max(traj.xyz[0], axis=0)
+    # Calculate the optimal box size
+    box_x = x_max - x_min
+    box_y = y_max - y_min
+    box_z = z_max - z_min
+    # Increase the box size by 1 nm from each side
+    box_x += 2.0
+    box_y += 2.0
+    box_z += 2.0
+    # Return the box vectors
+    return np.array([[box_x, 0, 0], [0, box_y, 0], [0, 0, box_z]])
+
+fit_box = get_fit_box('native_34850_relaxed_rank_001_alphafold2_ptm_model_1_seed_000.pdb')
+print(fit_box)
+
+
+
+
