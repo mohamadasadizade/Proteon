@@ -106,9 +106,6 @@ def get_fit_box(traj):
     # Return the box vectors
     return np.array([[box_x, 0, 0], [0, box_y, 0], [0, 0, box_z]])
 
-fit_box = get_fit_box('native_34850_relaxed_rank_001_alphafold2_ptm_model_1_seed_000.pdb')
-print(fit_box)
-
 
 
 def parse_pdb(pdb_file):
