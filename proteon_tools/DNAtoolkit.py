@@ -177,17 +177,3 @@ def codon_usage(seq, aminoacid):
         freqdict[codon]=round(freqdict[codon]/totalwight,2)
     return freqdict
 
-
-
-def protein_mass(seq):
-    """Calculating Protein Mass """
-    mass=0
-    for aa in seq:
-        mass+=monoisotopic_mass[aa]    
-    return mass
-    
-            
-            
-
-        
-        
