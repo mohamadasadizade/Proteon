@@ -1,6 +1,6 @@
 # Proteon
 
-`Proteon` is a Python package designed for protein sequence and structure analysis and manipulation. It includes utilities for protein sequence-based analysis, structure manipulation, and interaction with biological data formats like FASTA and PDB. This package aims to simplify the handling of protein sequences and structures, including residue composition analysis, protein property calculations, and PDB file manipulations.
+`Proteon` is a Python package for sequence-based analysis, structure manipulation, and interaction with biological data formats like FASTA and PDB. 
 
 ## Features
 
@@ -10,16 +10,16 @@
 - **Amino Acid Percentages**: Calculate the percentage of hydrophobic, polar, and charged residues in a protein sequence.
 
 ### Protein Structure Analysis
-- **B-factor Plotting**: Visualize B-factors from PDB files to assess protein flexibility.
-- **Fit Box Calculation**: Calculate an optimal fit box for a protein trajectory.
+- **B-factor Plotting**: Visualize B-factors from PDB files.
+- **Fit Box Calculation**: An optimal fit box for simulation studies.
 
-### Structure Manipulation
+### PDB Manipulation
 - **Chain Renumbering**: Change residue numbering in PDB files for specific chains.
 - **Chain Renaming**: Rename chains in a PDB file.
-- **PDB Merging**: Merge two PDB files into a single file.
+- **PDB Merging**: Merge two PDB files into one file.
 - **Hydrogen Removal**: Remove hydrogen atoms from PDB files.
 
-### Input/Output Utilities
+### File handling
 - **FASTA to Dictionary**: Convert FASTA files to dictionaries.
 - **PDB to FASTA**: Convert a PDB file to a FASTA sequence.
 - **File Reading and Writing**: Simple utilities to read from and write to files.
